@@ -1,47 +1,78 @@
 require "matrizds/version"
 
+# =begin
+#
+# Modulo que contiene las clases de las matrices con sus respectivas funciones
+#
+# =end
 module Matrizds
 # Your code goes here...
-	class Matriz   
-	#Get y Set
+
+	# ==begin
+	#
+	# Clase Matriz: Contiene todas las funciones necesarias para las matrices
+	#
+	# ==end
+
+	class Matriz
+		# ===begin
+		#
+		# Metodos Getters y Settes
+		#
+		# ===end
+  
 		attr_accessor :n,:m,:A,:min,:max
 
-		#Constructor de la clase Matriz
+		# ===begin
+		#
+		# Metodo constructor de la clase Matriz
+		#
+		# ===end
 		def initialize(*args)
 			@n=args[0]
 			@m=args[1]
 			@A=args[2]
-      @min, @max= min_max()
+      			@min, @max= min_max()
 		end
 
-		#Comprobar si una matriz tiene el mismo numero de filas que de columnas
+		# ===begin
+		#
+		# Comprobar si una matriz tiene el mismo numero de filas que de columnas
+		#
+		# ===end
 		def cuadrada
 			@n==@m
 		end
-    def min_max
-     min,max =@A[0][0],@A[0][0]
-      if nil==min 
-        return 0,0
-      end 
-      for i in  0...@n do
-        for j in 0...@m do
-      #      puts @A[i][j]
-            if max< @A[i][j] 
-               max=@A[i][j]
-              
-            end
-            if @A[i][j]<min 
-                  min=@A[i][j]
-              
-            end
-            
-        end
-      end
-        return min, max
-     
-    
-    end
-		#Imprimir la matriz
+
+		# ===begin
+		#
+		# Metodo que calcula el minimo y el máximo de una matriz
+		#
+		# ===end
+		def min_max
+			min,max =@A[0][0],@A[0][0]
+			if nil==min 
+				return 0,0
+			end 
+			for i in  0...@n do
+				for j in 0...@m do
+					if max< @A[i][j] 
+						max=@A[i][j]
+					end
+					if @A[i][j]<min 
+						min=@A[i][j]
+					end
+
+				end
+			end
+			return min, max
+		end
+
+		# ===begin
+		#
+		# Metodo para imprimir la matriz
+		#
+		# ===end
 		def to_s
 			salida=""
 			for i in 0...@n do
@@ -61,7 +92,11 @@ module Matrizds
 			return salida
 		end
 
-		#Resta de Matrices
+		# ===begin
+		#
+		# Metodo para restar dos matrices
+		#
+		# ===end
 		def -(other)
 			c=Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
 			for i in 0...@n do
@@ -72,37 +107,33 @@ module Matrizds
 			return c
 		end
 
-		#Suma de Matrices
+		# ===begin
+		#
+		# Metodo para sumar dos matrices
+		#
+		# ===end
 		def +(other) 
 			c=Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
-      @n.times {|i|@m.times{|j|  c.A[i][j] =@A[i][j] + other.A[i][j]}}
-=begin
-			for i in 0...@n do
-				for j in 0...@m do
-					c.A[i][j] =@A[i][j] + other.A[i][j]
-				end
-			end
-=end
+      			@n.times {|i|@m.times{|j|  c.A[i][j] =@A[i][j] + other.A[i][j]}}
 			return c
 		end
 
-		#Multiplicacion de Matrices
+		# ===begin
+		#
+		# Metodo para multiplicar dos matrices
+		#
+		# ===end
 		def *(other)
 			c=Matriz.new(@n,@m,Array.new(@n,0){Array.new(@m,0)})
-		 @n.times {|i|@m.times{|j|@n.times{|k| c.A[i][j] += @A[i][k] * other.A[k][j] }  }}	
-=begin   
- for i in 0...@n do
-				for j in 0...@n do  
-					for k in 0...@n do
-						c.A[i][j] += @A[i][k] * other.A[k][j]           
-					end
-				end
-			end
-=end
-			c 
+		 @n.times {|i|@m.times{|j|@n.times{|k| c.A[i][j] += @A[i][k] * other.A[k][j]}}}	
+		c 
 		end
 
-		#Division de una matriz por un escalar
+		# ===begin
+		#
+		# Metodo para dividir una matriz por un escalar
+		#
+		# ===end
 		def /(other)
 			c=Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
 			for i in 0...@n do
@@ -113,7 +144,11 @@ module Matrizds
 			return c
 		end
 
-		#multiplicacion de una matriz por un escalar
+		# ===begin
+		#
+		# Metodo para multiplicar una matriz por un escalar
+		#
+		# ===end
 		def mult(a)
 			c=Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
 			for i in 0...@n do
