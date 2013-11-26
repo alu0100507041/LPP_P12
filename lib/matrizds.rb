@@ -6,7 +6,6 @@ require "matrizds/version"
 #
 # =end
 module Matrizds
-# Your code goes here...
 
 	# ==begin
 	#
@@ -160,121 +159,218 @@ module Matrizds
 		end
 	end
 
+	# ==begin
+	#
+	# Clase Fraccion: Contiene todas las funciones necesarias para las fracciones
+	#
+	# ==end
 	class Fraccion
+		include Comparable
 
-	include Comparable
-	def  initialize (a,b)
-	c = gcd(a,b)
-	@a = (a/c)
-	@b = (b/c)
+		# ===begin
+		#
+		# Metodo contructor de fracciones
+		#
+		# ===end
+		def  initialize (a,b)
+			c = gcd(a,b)
+			@a = (a/c)
+			@b = (b/c)
+		end
+ 		# ===begin
+		#
+		# Metodos Getters y Setters
+		#
+		# ===end
+		attr_accessor :a,:b
 
-	end 
-	attr_accessor :a,:b
+		# ===begin
+		#
+		# Metodo para imprimir fracciones
+		#
+		# ===end
+		def to_s
+			"#{@a}/#{@b}"
+		end
 
-	def to_s
-	"#{@a}/#{@b}"
-	end
+		# ===begin
+		#
+		# Metodo para devolver el valor de la fraccion en punto flotante
+		#
+		# ===end
+		def to_f 
+			c = @a.to_f/@b.to_f
+			c
+		end
 
-	def to_f 
-	c = @a.to_f/@b.to_f
-	c
-	end
+		# ===begin
+		#
+		# Metodo para obtener el valor absoluto de las fracciones
+		#
+		# ===end
+		def abs
+			c = @a.to_f/@b.to_f
+			return c.abs
+		end
 
-	
-	def abs
-	c = @a.to_f/@b.to_f
-	return c.abs
-	end
+		# ===begin
+		#
+		# Metodo para calcular reciproco de fracciones
+		#
+		# ===end
+		def reciprocal
+			f=Fraccion.new(1,1)
+			f.a=@b
+			f.b=@a
+			f
+		end
 
-	def reciprocal
-	f=Fraccion.new(1,1)
-	f.a=@b
-	f.b = @a
-	f
-	end
-	def -@
-	Fraccion.new(-@a,@b)
-	end
-	def minimiza(x,y)
-	d = gcd(x,y)
-	x = x/d
-	y = y/d
-	return x,y
-	end
+		# ===begin
+		#
+		# Metodo para calcular el opuesto de una fraccion
+		#
+		# ===end
+		def -@
+			Fraccion.new(-@a,@b)
+		end
 
-	def +(other)
-	f =Fraccion.new(1,1)
-	if other.instance_of? Fixnum
-	f.a=(other*@b)+@a
-	f.b=@b
-	else 
-	f.a=@a*other.b+other.a*@b
-	f.b=@b*other.b
-	end
-	#minimizamos el resultado
-	f.a,f.b = minimiza(f.a,f.b)
-	return f
-	end
-	def -(other)
-	f =Fraccion.new(1,1)
-	if other.instance_of? Fixnum
-	f.a=@a-(other*@b)
-	f.b=@b
-	else
-	f.a=@a*other.b-other.a*@b
-	f.b=@b*other.b
-	end
+		# ===begin
+		#
+		# Metodo para calcular el minimo de una fraccion
+		#
+		# ===end
+		def minimiza(x,y)
+			d = gcd(x,y)
+			x = x/d
+			y = y/d
+			return x,y
+		end
 
-	#minimizamos el resultado
-	f.a,f.b = minimiza(f.a,f.b)
-	return f
-	end
-	def *(other)
-	f =Fraccion.new(1,1)
-	if other.instance_of? Fixnum
-	f.b = @b
-	f.a = @a*other
-	else
-	f.a=@a * other.a
-	f.b=@b * other.b 
-	end
-	#minimizamos el resultado
-	f.a,f.b = minimiza(f.a,f.b)
-	return f
-	end
-	def gcd(u, v)
-	u, v = u.abs, v.abs
-	while v != 0
-	u, v = v, u % v
-	end
-	u
-	end
-	def /(other)
-	f =Fraccion.new(1,1)
-	if other.instance_of? Fixnum
-	f.a=@a
-	f.b=@b*other
-	else
-	f.a=@a*other.b
-	f.b=@b*other.a
-	end
-	#minimizamos el resultado
-	f.a,f.b = minimiza(f.a,f.b)
-	return f
-	end
-	def <=>(other)
-	self.to_f <=> other.to_f
-	end 
-	 def coerce(other)
-            [self,other]
-        end
+		# ===begin
+		#
+		# Metodo para calcular la suma de fracciones
+		#
+		# ===end
+		def +(other)
+			f =Fraccion.new(1,1)
+			if other.instance_of? Fixnum
+				f.a=(other*@b)+@a
+				f.b=@b
+			else 
+				f.a=@a*other.b+other.a*@b
+				f.b=@b*other.b
+			end
+			#minimizamos el resultado
+			f.a,f.b = minimiza(f.a,f.b)
+			return f
+		end
+
+		# ===begin
+		#
+		# Metodo para restar dos fracciones
+		#
+		# ===end
+		def -(other)
+			f =Fraccion.new(1,1)
+			if other.instance_of? Fixnum
+				f.a=@a-(other*@b)
+				f.b=@b
+			else
+				f.a=@a*other.b-other.a*@b
+				f.b=@b*other.b
+			end
+			#minimizamos el resultado
+			f.a,f.b = minimiza(f.a,f.b)
+			return f
+		end
+
+		# ===begin
+		#
+		# Metodo para multiplicar dos fracciones
+		#
+		# ===end
+		def *(other)
+			f =Fraccion.new(1,1)
+			if other.instance_of? Fixnum
+				f.b = @b
+				f.a = @a*other
+			else
+				f.a=@a * other.a
+				f.b=@b * other.b 
+			end
+			#minimizamos el resultado
+			f.a,f.b = minimiza(f.a,f.b)
+			return f
+		end
+
+		# ===begin
+		#
+		# Metodo para calcular el maximo comun divisor de una fraccion
+		#
+		# ===end
+		def gcd(u, v)
+			u, v = u.abs, v.abs
+			while v != 0
+				u, v = v, u % v
+			end
+			u
+		end
+
+		# ===begin
+		#
+		# Metodo para calcular la division de fracciones
+		#
+		# ===end
+		def /(other)
+			f =Fraccion.new(1,1)
+			if other.instance_of? Fixnum
+				f.a=@a
+				f.b=@b*other
+			else
+				f.a=@a*other.b
+				f.b=@b*other.a
+			end
+			#minimizamos el resultado
+			f.a,f.b = minimiza(f.a,f.b)
+			return f
+		end
+
+		# ===begin
+		#
+		# Metodo Guerra de las Galaxias para la comparacion de fracciones
+		#
+		# ===end
+		def <=>(other)
+			self.to_f <=> other.to_f
+		end
+
+		def coerce(other)
+		    [self,other]
+		end
 
 	end #class
 
+	# ==begin
+	#
+	# Clase Fraccion: Contiene todas las funciones necesarias para obtener elementos
+	#
+	# ==end
 	class Elemento
+
+		# ===begin
+		#
+		# Metodo constructor de elementos dentro de un vector
+		#
+		# ===end
 		def initialize(i,j,valor) 
 			@i,@j,@value= i,j,valor
 		end
+
+		# ===begin
+		#
+		# Metodos Getters y Setters
+		#
+		# ===end
 		attr_accessor :i,:j,:value
 	end
 	# == 
