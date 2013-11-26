@@ -242,7 +242,9 @@ module Matrizds
 		end
 		attr_accessor :i,:j,:value
 	end
-
+	# == 
+	# 	Clase Matriz dispersa la cual se encargara de almacenar solo los elementos no nulos
+	# == 
 	class Sparse < Matriz
 		def initialize(*args)
 			@n,@m=args[0],args[1]
@@ -259,7 +261,9 @@ module Matrizds
 			end
       @min,@max=min_max()
 		end
-		
+		# === begin
+		# Funcion para imprimir matrices dispersas
+		# === end
 		def to_s
 		salida=""
 			for i in 0...@n
@@ -275,7 +279,9 @@ module Matrizds
 				end
 			return salida	
 		end
-		
+		# === begin
+		# Funcion que devuelve el valor de la posicion dentro de la matriz dispersa
+		# === end
 		def get(k,l)
 			devuelve=0
 			for i in 0...@A.size
@@ -286,7 +292,9 @@ module Matrizds
 			end
 			devuelve
 		end
-
+		# === begin
+		# Funcion para la suma de matrices dispersas
+		# === end
 	
 		def  +(other)
 			if other.instance_of? Sparse
@@ -300,7 +308,9 @@ module Matrizds
 				return c
 			end
 		end
-
+		# === begin
+		# Funcion para la resta de matrices densas
+		# === end
 		def -(other)
 			if other.instance_of? Sparse
 				c= Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
@@ -321,6 +331,10 @@ module Matrizds
 			end
 		end
 
+		# === begin
+		# Funcion para la multiplicacion de matrices
+		# === end
+
 		def *(other)
 			if other.instance_of? Sparse
 			c= Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
@@ -333,6 +347,9 @@ module Matrizds
 		end
 		return c
 		end
+		# === begin
+		# Funcion para el calculo del minimo y maximo de un numero
+		# === end
 		def min_max
 			min,max =@A[0].value,@A[0].value
 			if nil==min
