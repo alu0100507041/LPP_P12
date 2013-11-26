@@ -75,24 +75,30 @@ module Matrizds
 		#Suma de Matrices
 		def +(other) 
 			c=Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
+      @n.times {|i|@m.times{|j|  c.A[i][j] =@A[i][j] + other.A[i][j]}}
+=begin
 			for i in 0...@n do
 				for j in 0...@m do
 					c.A[i][j] =@A[i][j] + other.A[i][j]
 				end
 			end
+=end
 			return c
 		end
 
 		#Multiplicacion de Matrices
 		def *(other)
 			c=Matriz.new(@n,@m,Array.new(@n,0){Array.new(@m,0)})
-			for i in 0...@n do
+		 @n.times {|i|@m.times{|j|@n.times{|k| c.A[i][j] += @A[i][k] * other.A[k][j] }  }}	
+=begin   
+ for i in 0...@n do
 				for j in 0...@n do  
 					for k in 0...@n do
 						c.A[i][j] += @A[i][k] * other.A[k][j]           
 					end
 				end
 			end
+=end
 			c 
 		end
 
@@ -285,19 +291,12 @@ module Matrizds
 		def  +(other)
 			if other.instance_of? Sparse
 				c= Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
-				for i in 0...@n
-					for j in 0...@m
-						c.A[i][j]=self.get(i,j)+other.get(i,j)    
-					end
-				end
-				return Sparse.new(@n,@m,c)
+        @n.times {|i|@m.times{|j|  c.A[i][j] = self.get(i,j)+other.get(i,j)}}
+  			return Sparse.new(@n,@m,c)
 			else
 				c= Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
-				for i in 0...@n
-					for j in 0...@m
-						c.A[i][j]=self.get(i,j)+other.A[i][j]
-					end
-				end
+			   @n.times {|i|@m.times{|j|  c.A[i][j]=self.get(i,j)+other.A[i][j]}}			
+			
 				return c
 			end
 		end
@@ -325,29 +324,19 @@ module Matrizds
 		def *(other)
 			if other.instance_of? Sparse
 			c= Matriz.new(@n,@m,Array.new(@n){Array.new(@m)})
-			for i in 0...@n
-				for j in 0...@m
-					for k in 0...@n do
-						c.A[i][j]+=self.get(i,k)*other.get(k,j)   
-					end
-				end
-			end
+			@n.times {|i|@m.times{|j|@n.times{|k| c.A[i][j] += self.get(i,k)*other.get(k,j) }  }}	
+			
 		else
 			c= Matriz.new(@n,@m,Array.new(@n,0){Array.new(@m,0)})
-			for i in 0...@n
-				for j in 0...@m
-					for k in 0...@n do
-						c.A[i][j]+=self.get(i,k)*(other.A[k][j])           
-					end
-				end
-			end
+			@n.times {|i|@m.times{|j|@n.times{|k| c.A[i][j] += self.get(i,k)*(other.A[k][j]) }  }}
+			
 		end
 		return c
 		end
 		def min_max
-     min,max =@A[0].value,@A[0].value
-      if nil==min
-        return 0,0
+			min,max =@A[0].value,@A[0].value
+			if nil==min
+				return 0,0
       end
      if min >0 
 		min=0
