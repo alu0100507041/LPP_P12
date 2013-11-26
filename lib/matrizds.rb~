@@ -1,0 +1,5 @@
+require "matrizds/version"
+
+module Matrizds
+  # Your code goes here...
+end
