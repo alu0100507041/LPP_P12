@@ -504,7 +504,7 @@ module Matrizds
 
 
     end
-	end
+	end#class
 	
 	class MatrizDSL
         #Initialize, inicializa los valores a los que se les pase por parametro
@@ -516,6 +516,64 @@ module Matrizds
                 instance_eval &block
        end
        
+       def operacion(opt)
+             @name = opt
+       end
        
+       def opcion(opt)
+               case opt
+               when "densa"  
+                       @MatrizClass = "densa"
+               when "dispersa" 
+                       @MatrizClass = "dispersa"
+               when "consola"
+                       @salida = 1
+               when "matrix"
+                       @salida = 0
+               end               
+       end
        
+       def operando(fil1,fil2)
+                   n = fil1.size
+                   m = fil2.size
+                   case @tMatrizClass
+                   when "densa" 
+                            @Matriz << Matrizds::Matriz.new(n,m,[fil1,fil2])
+                   when "dispersa" 
+                        @Matriz << Matrizds::Sparse.new(n,m,[fil1,fil2])
+                   end 
+       end
+       
+       def run
+                case @name
+                   when "suma"
+                               resultado = (@DM[0]+@DM[1]).to_s
+                   when "multiplicacion"
+                               resultado = (@DM[0]*@DM[1]).to_s
+                    when "resta"
+                    
+                                resultado = (@DM[0]-@DM[1]).to_s
+                   end
+
+                if @salida == 1
+                               result(resultado)
+                   else
+                               return resultado
+                   end                  
+       end
+       
+       def mostrar(res)
+                case @name
+                   when "suma"
+                               printf "A:\t%s\ + t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                   when "resta"
+                              printf "A:\t%s\ - t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                              
+                                         
+                   when "multiplicacion"                
+                               printf "A:\t%s\ *s t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                   end
+        end
+       
+end #classs DSL
 end #module
