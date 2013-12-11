@@ -536,7 +536,7 @@ end #module
        def operando(fil1,fil2)
                    n = fil1.size
                    m = fil2.size
-                   case @tMatrizClass
+                   case @MatrizClass
                    when "densa" 
                             @Matriz << Matrizds::Matriz.new(n,m,[fil1,fil2])
                    when "dispersa" 
@@ -547,16 +547,16 @@ end #module
        def run
                 case @name
                    when "suma"
-                               resultado = (@DM[0]+@DM[1]).to_s
+                               resultado = (@Matriz[0]+@Matriz[1]).to_s
                    when "multiplicacion"
-                               resultado = (@DM[0]*@DM[1]).to_s
+                               resultado = (@Matriz[0]*@Matriz[1]).to_s
                     when "resta"
                     
-                                resultado = (@DM[0]-@DM[1]).to_s
+                                resultado = (@Matriz[0]-@Matriz[1]).to_s
                    end
 
                 if @salida == 1
-                               result(resultado)
+                               mostrar(resultado)
                    else
                                return resultado
                    end                  
