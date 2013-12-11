@@ -7,6 +7,6 @@ calculo = <<"CALCULO"
         	#{calculo}
 	end
 CALCULO
-matrizDSL = eval calc
+matrizDSL = eval calculo
 
 matrizDSL.run
