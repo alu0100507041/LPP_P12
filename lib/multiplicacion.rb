@@ -1,14 +1,13 @@
 #Tipo de operacion
-operacion "resta"
+operacion "multiplicacion"
 
-#Muestra por consola
+#Mostrar por consola
 opcion "consola"
 
-#Matrices dispersas
+#Matriz Dispersa
 opcion "dispersa"
 operando [1,0],[2,0]
 
-#Matrices densas
+#Matriz Densa
 opcion "densa"
 operando [1,2],[2,3]
-
