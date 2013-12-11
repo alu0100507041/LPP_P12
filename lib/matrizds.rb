@@ -1,4 +1,4 @@
-require "matrizds/version"
+
 
 # =begin
 #
@@ -505,7 +505,7 @@ module Matrizds
 
     end
 	end#class
-	
+end #module	
 	class MatrizDSL
         #Initialize, inicializa los valores a los que se les pase por parametro
         def initialize(operation = "", &block)
@@ -565,15 +565,15 @@ module Matrizds
        def mostrar(res)
                 case @name
                    when "suma"
-                               printf "A:\t%s\ + t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                               printf "A:\t%s\ + t%s == t%s", @Matriz[0].to_s, @Matriz[1].to_s, res
                    when "resta"
-                              printf "A:\t%s\ - t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                              printf "A:\t%s\ - t%s == t%s", @Matriz[0].to_s, @Matriz[1].to_s, res
                               
                                          
                    when "multiplicacion"                
-                               printf "A:\t%s\ *s t%s == t%s", @DM[0].to_s, @DM[1].to_s, res
+                               printf "A:\t%s\ *s t%s == t%s", @Matriz[0].to_s, @Matriz[1].to_s, res
                    end
         end
        
 end #classs DSL
-end #module
+
